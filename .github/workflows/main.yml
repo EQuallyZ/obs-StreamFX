@@ -174,7 +174,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: "${{ matrix.runner }}-${{ matrix.compiler }}-qt${{ matrix.qt }}"
-        path: "${{ github.workspace }}/build/package"
+        path: "${{ github.workspace }}/build"
         retention-days: 3
 
   

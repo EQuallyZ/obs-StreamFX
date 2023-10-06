@@ -169,13 +169,18 @@ jobs:
       run: |
         mkdir "${{ github.workspace }}\build\package"
         cmake --build "${{ github.workspace }}/build/ci" --config RelWithDebInfo --target PACKAGE_7Z
-        tree ${{ github.workspace }}\build
+        
+    - name: "Packaging (Windows)"
+      continue-on-error: true
+      shell: cmd
+      run: |
+        "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" /V10 ".\build\ci\installer.iss"
 
     - name: "Artifacts"
       uses: actions/upload-artifact@v3
       with:
         name: "${{ matrix.runner }}-${{ matrix.compiler }}-qt${{ matrix.qt }}"
-        path: "${{ github.workspace }}/build/ci"
+        path: "${{ github.workspace }}/build/package"
         retention-days: 3
 
   

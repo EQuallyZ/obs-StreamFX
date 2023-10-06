@@ -168,13 +168,14 @@ jobs:
       shell: bash
       run: |
         mkdir "${{ github.workspace }}\build\package"
-        cmake --build "${{ github.workspace }}/build/ci" --config RelWithDebInfo --target PACKAGE_7Z
+        mkdir "${{ github.workspace }}\build\cmake_build"
+        cmake --build "${{ github.workspace }}/build/ci" --config RelWithDebInfo --target PACKAGE_7Z -B "${{ github.workspace }}/build/cmake_build"
 
     - name: "Artifacts"
       uses: actions/upload-artifact@v3
       with:
         name: "${{ matrix.runner }}-${{ matrix.compiler }}-qt${{ matrix.qt }}"
-        path: "${{ github.workspace }}/build"
+        path: "${{ github.workspace }}/build/cmake_build"
         retention-days: 3
 
   
